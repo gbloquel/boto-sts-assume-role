@@ -1,14 +1,10 @@
-try:
-    # for pip >= 10
-    from pip._internal.req import parse_requirements
-except ImportError:
-    # for pip <= 9.0.3
-    from pip.req import parse_requirements
 from codecs import open
 from setuptools import setup, find_packages
 import os
 
-requirements = parse_requirements('requirements.txt', session='hack')
+with open('requirements.txt') as f:
+        install_requires = f.read().strip().split('\n')
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 about = {}
@@ -26,5 +22,5 @@ setup(
     python_requires='>=2.7',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[str(ir.req) for ir in requirements],
+    install_requires=install_requires,
 )
